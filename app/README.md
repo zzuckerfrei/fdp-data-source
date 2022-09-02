@@ -29,6 +29,6 @@ FastAPI, pymongo
 │   │   └── three-sixty.py     # not yet
 │   └── db                     # package for db session manage
 │       ├── __init__.py
-│       └── session.py         # client생성
+│       └── client.py         # client생성
 ```
 last update 20220830

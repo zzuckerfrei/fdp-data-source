@@ -1,10 +1,8 @@
 from fastapi import FastAPI
-from api import api
+
+from api.api import api_router
+from config import settings
 
 
-app = FastAPI()
-
-
-if __name__ == '__main__':
-
-    app.include_router(api.api_router)
+app = FastAPI(title="title test", openapi_url=f"{settings.API_V1_STR}/openapi.json")
+app.include_router(api_router, prefix=settings.API_V1_STR)
