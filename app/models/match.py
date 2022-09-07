@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-class Competition(Document):
+class Match(Document):
     data_type: str
     org_name: str
     data: dict
@@ -13,12 +13,12 @@ class Competition(Document):
     last_update: datetime = datetime.now()
 
     class Settings:
-        name = "competition"
+        name = "match"
 
     class Config:
         schema_extra = {
             "example": {
-                "data_type": "competition",
+                "data_type": "match",
                 "org_name": "1.json",
                 "data": {
                     "id": "11493e75-0d53-4489-8ccf-a2d2752661ec",
@@ -34,7 +34,7 @@ class Competition(Document):
         }
 
 
-class UpdateCompetition(BaseModel):
+class UpdateMatch(BaseModel):
     data_type: Optional[str]
     org_name: Optional[str]
     data: Optional[dict]

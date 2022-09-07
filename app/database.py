@@ -18,6 +18,4 @@ async def init_db():
             MONGO_PORT=settings.MONGO_PORT,
             MONGO_DB_NAME=settings.MONGO_DB_NAME)
         , authSource="admin")
-    print(client["db_name"])
-    print(client.db)
     await init_beanie(database=client.fdp, document_models=[Meta, Competition, Match, Lineup, Event])

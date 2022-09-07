@@ -1,6 +1,15 @@
 from db import client
+from config import settings
 
 
+def get_data_type(data_type: str):
+    return settings.DATA_TYPE[data_type][0]
+
+
+
+
+
+##################################################
 def get_client():
     return client.get_client()
 

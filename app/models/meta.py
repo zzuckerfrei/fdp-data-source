@@ -7,7 +7,7 @@ from typing import Optional, List
 
 # 임시 meta 보관소
 class Meta(Document):
-    data_type: str
+    data_type: str = None
     count_in_dir: int
     list_in_dir: List[str]
     count_in_db: int
@@ -15,7 +15,8 @@ class Meta(Document):
     last_update: datetime = datetime.now()
 
     class Settings:
-        name = "meta"
+        # name = "meta"
+        name: str
 
     class Config:
         schema_extra = {
@@ -36,7 +37,7 @@ class UpdateMeta(BaseModel):
     list_in_dir: Optional[List[str]]
     count_in_db: Optional[int]
     list_in_db: Optional[List[str]]
-    last_update: datetime = Optional[datetime]
+    last_update: Optional[datetime]
 
     class Config:
         schema_extra = {

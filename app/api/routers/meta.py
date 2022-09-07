@@ -1,10 +1,8 @@
 from pprint import pprint
 
-from beanie import PydanticObjectId
 from fastapi import APIRouter, HTTPException
-from typing import List
 
-from models.meta import Meta
+from models.meta import Meta, UpdateMeta
 
 router = APIRouter()
 
@@ -43,13 +41,25 @@ async def read_all_meta() -> dict:
     }
 
 
-# 3. udpate
+# 3. update
 @router.put("/update_one/{data_type}")
-async def update_one_meta(data_type, meta: Meta) -> dict:
-    await meta.update()
+async def update_one_meta(data_type, req: UpdateMeta) -> dict:
+    req = {k: v for k, v in req.dict().items() if v is not None}
+    update_query = {"$set": {
+        field: value for field, value in req.items()
+    }}
+
+    meta = await Meta.find_one(Meta.data_type == data_type)
+    if not meta:
+        raise HTTPException(
+            status_code=404,
+            detail="Meta (data_type: {}) not found!".format(data_type)
+        )
+    meta.data_type = data_type
+    await meta.update(update_query)
 
     return {
-        "result": result,
+        "result": meta,
         "message": "update_one_meta success"
     }
 
