@@ -2,9 +2,16 @@ from db import client
 from config import settings
 
 
-def get_data_type(data_type: str):
-    return settings.DATA_TYPE[data_type][0]
+class DataTypeChecker:
+    def __init__(self):
+        pass
 
+    def __call__(self, data_type: str):
+        print("q is {}".format(data_type))
+        return settings.DATA_TYPE[data_type][0]
+
+
+checker = DataTypeChecker()
 
 
 

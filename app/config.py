@@ -28,5 +28,12 @@ class Settings(BaseSettings):
         "event": [Event, UpdateEvent]
     }
 
+    DIR_PATH = {
+        "comeptition": "",
+        "match": "",
+        "lineup": "",
+        "event": ""
+    }
+
 
 settings = Settings()
