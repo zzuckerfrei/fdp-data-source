@@ -1,3 +1,6 @@
+import os
+import glob
+
 from db import client
 from config import settings
 
@@ -7,11 +10,35 @@ class DataTypeChecker:
         pass
 
     def __call__(self, data_type: str):
-        print("q is {}".format(data_type))
+        print("q is {}".format(data_type))  # 삭제
         return settings.DATA_TYPE[data_type][0]
 
 
 checker = DataTypeChecker()
+
+
+
+class JsonFinder:
+    def __int__(self):
+        pass
+    def __call__(self, data_type, org_name):
+        
+        return 1
+
+
+def get_folder_names(folder_path):
+    """
+    :param folder_path:
+    :return:
+    """
+    lst_files = glob.glob(folder_path + "/" + "*")
+    lst_searched = []
+
+    for x in lst_files:
+        if (os.path.isdir(x)):
+            lst_searched.append(x)
+
+    return lst_searched
 
 
 
