@@ -15,8 +15,7 @@ class Meta(Document):
     last_update: datetime = datetime.now()
 
     class Settings:
-        # name = "meta"
-        name: str
+        name = "meta"
 
     class Config:
         schema_extra = {

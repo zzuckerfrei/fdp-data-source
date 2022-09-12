@@ -17,13 +17,44 @@ class DataTypeChecker:
 checker = DataTypeChecker()
 
 
-
 class JsonFinder:
     def __int__(self):
         pass
+
     def __call__(self, data_type, org_name):
-        
-        return 1
+        return get_method_by_data_type(data_type)
+
+
+finder = JsonFinder()
+
+
+def get_method_by_data_type(data_type):
+    result = list()
+    folder_path = settings.FILE_DIR[data_type]
+
+    if data_type == "match":
+        for sub_folder in get_folder_names(folder_path):
+            result.extend(get_file_names(sub_folder))
+
+    result.extend(get_file_names(folder_path))
+
+    return result
+
+
+def get_file_names(folder_path, pattern="*.json"):
+    """
+    :param folder_path:
+    :param pattern:
+    :return:
+    """
+    lst_files = glob.glob(folder_path + "/" + pattern)
+    lst_searched = []
+
+    for x in lst_files:
+        if os.path.isfile(x):
+            lst_searched.append(x)
+
+    return lst_searched
 
 
 def get_folder_names(folder_path):
@@ -35,13 +66,10 @@ def get_folder_names(folder_path):
     lst_searched = []
 
     for x in lst_files:
-        if (os.path.isdir(x)):
+        if os.path.isdir(x):
             lst_searched.append(x)
 
     return lst_searched
-
-
-
 
 ##################################################
 def get_client():

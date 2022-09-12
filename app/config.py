@@ -28,11 +28,11 @@ class Settings(BaseSettings):
         "event": [Event, UpdateEvent]
     }
 
-    DIR_PATH = {
-        "comeptition": "",
-        "match": "",
-        "lineup": "",
-        "event": ""
+    FILE_DIR = {
+        "competition": "/Users/smlee/Documents/open-data-master/data/",
+        "match": "/Users/smlee/Documents/open-data-master/data/matches",
+        "lineup": "/Users/smlee/Documents/open-data-master/data/lineups",
+        "event": "/Users/smlee/Documents/open-data-master/data/events"
     }
 
 
