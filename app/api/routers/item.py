@@ -83,6 +83,17 @@ async def create_item(data_type, org_name, file_list: Any = Depends(deps.finder)
         )
 
 
+# 4. delete
+@router.delete("/delete")
+async def delete_item_all(data_type, data_model: Any = Depends(deps.checker)):
+
+    await data_model.find(data_model.data_type == data_type).delete()
+
+    return {
+        "ressult": "delete all {} collection".format(data_type)
+    }
+
+
 ####################################################################################  나중에 개발
 
 
@@ -93,3 +104,5 @@ async def read_one_item(data_type, org_name, data_model: Any = Depends(deps.chec
         # "result": result,
         "message": "read_one_meta {} success".format(data_type)
     }
+
+# 3. update -> unuse

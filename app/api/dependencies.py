@@ -21,7 +21,7 @@ class JsonFinder:
     def __int__(self):
         pass
 
-    def __call__(self, data_type, org_name):
+    def __call__(self, data_type, org_name):  # 여기서 받는 param은 query param임
         return get_method_by_data_type(data_type)
 
 

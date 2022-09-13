@@ -1,16 +1,23 @@
 from pprint import pprint
+from typing import Any
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 
 from models.meta import Meta, UpdateMeta
+from .. import dependencies as deps
+
 
 router = APIRouter()
 
 
 # 1. create
 @router.post("/create/{data_type}", response_description="")
-async def create_meta(data_type, meta: Meta) -> dict:
+async def create_meta(data_type, meta: Meta, file_list: Any = Depends(deps.finder)) -> dict:
+
     meta.data_type = data_type
+    meta.list_in_dir = file_list  # 정렬하기
+    meta.count_in_dir = len(file_list)
+
     await meta.create()
     result = await meta.get(meta.id)
 
