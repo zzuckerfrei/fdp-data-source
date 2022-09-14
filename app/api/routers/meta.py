@@ -77,4 +77,15 @@ async def update_one_meta(
         "message": "update_one_meta success"
     }
 
+
 # 4. delete -> unuse
+@router.delete("/delete/{data_type}")
+async def delete_meta_one(
+        data_type: str,
+) -> dict:
+
+    await Meta.find(Meta.data_type == data_type).delete()
+
+    return {
+        "message": "delete meta {} collection".format(data_type)
+    }

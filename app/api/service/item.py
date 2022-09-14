@@ -16,7 +16,8 @@ async def create_item_service(data_type: str,
         # 타입별 메타 정보 조회, 그 다음 파일 읽어서 model에 담기
         meta = await Meta.find_one(Meta.data_type == data_type)
 
-        target_file = meta.list_in_dir[meta.list_in_dir.index(org_name) + 1]
+        # target_file = meta.list_in_dir[meta.list_in_dir.index(org_name) + 1]  # index+1 로직 수정 20220915
+        target_file = meta.list_in_dir[meta.list_in_dir.index(org_name)]
         print("target file is {}".format(target_file))
 
         with open(target_file, 'r') as f:
