@@ -1,31 +1,29 @@
 import os
 import glob
 
-from db import client
 from config import settings
 
 
-class DataTypeChecker:
+class ItemModelFinder:
     def __init__(self):
         pass
 
     def __call__(self, data_type: str):
-        print("q is {}".format(data_type))  # 삭제
         return settings.DATA_TYPE[data_type][0]
 
 
-checker = DataTypeChecker()
+item_model = ItemModelFinder()
 
 
-class JsonFinder:
+class FileFinder:
     def __int__(self):
         pass
 
-    def __call__(self, data_type, org_name):  # 여기서 받는 param은 query param임
+    def __call__(self, data_type):  # 여기서 받는 param은 query param임
         return get_method_by_data_type(data_type)
 
 
-finder = JsonFinder()
+file_list = FileFinder()
 
 
 def get_method_by_data_type(data_type):
@@ -38,7 +36,7 @@ def get_method_by_data_type(data_type):
 
     result.extend(get_file_names(folder_path))
 
-    return result
+    return sorted(list(set(result)))
 
 
 def get_file_names(folder_path, pattern="*.json"):
@@ -70,15 +68,6 @@ def get_folder_names(folder_path):
             lst_searched.append(x)
 
     return lst_searched
-
-##################################################
-def get_client():
-    return client.get_client()
-
-
-# 삭제?
-# def get_session():
-#     return get_client().start_session(causal_consistency=True)
 
 
 '''

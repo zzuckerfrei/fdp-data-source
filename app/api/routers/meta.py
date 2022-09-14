@@ -6,16 +6,18 @@ from fastapi import APIRouter, HTTPException, Depends
 from models.meta import Meta, UpdateMeta
 from .. import dependencies as deps
 
-
 router = APIRouter()
 
 
 # 1. create
 @router.post("/create/{data_type}", response_description="")
-async def create_meta(data_type, meta: Meta, file_list: Any = Depends(deps.finder)) -> dict:
-
+async def create_meta(
+        data_type: str,
+        meta: Meta,
+        file_list: Any = Depends(deps.file_list)
+) -> dict:
     meta.data_type = data_type
-    meta.list_in_dir = file_list  # 정렬하기
+    meta.list_in_dir = file_list
     meta.count_in_dir = len(file_list)
 
     await meta.create()
@@ -29,7 +31,9 @@ async def create_meta(data_type, meta: Meta, file_list: Any = Depends(deps.finde
 
 # 2. read
 @router.get("/read_one/{data_type}", response_description="")
-async def read_one_meta(data_type) -> dict:
+async def read_one_meta(
+        data_type: str
+) -> dict:
     result = await Meta.find_one(Meta.data_type == data_type)
 
     return {
@@ -50,7 +54,10 @@ async def read_all_meta() -> dict:
 
 # 3. update
 @router.put("/update_one/{data_type}")
-async def update_one_meta(data_type, req: UpdateMeta) -> dict:
+async def update_one_meta(
+        data_type: str,
+        req: UpdateMeta
+) -> dict:
     req = {k: v for k, v in req.dict().items() if v is not None}
     update_query = {"$set": {
         field: value for field, value in req.items()

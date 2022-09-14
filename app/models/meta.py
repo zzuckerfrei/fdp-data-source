@@ -23,8 +23,8 @@ class Meta(Document):
                 "data_type": "match",
                 "count_in_dir": 5,
                 "list_in_dir": ["1.json", "2.json", "3.json", "4.json", "5.json"],
-                "count_in_db": 3,
-                "list_in_db": ["1.json", "2.json", "3.json"],
+                "count_in_db": 0,
+                "list_in_db": [],
                 "last_update": datetime.now()
             }
         }
