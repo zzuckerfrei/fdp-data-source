@@ -1,38 +1,37 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 
 from .. import dependencies as deps
-from models.item import Item
 from ..service.item import *
+import schemas
 
 router = APIRouter()
 
 
 # 1 create - 실제 airflow가 호출할 api
-@router.post("/create", response_description="")
+@router.post("/create", response_model=schemas.Msg, response_description="")
 async def create_item(
         data_type: str,
         org_name: str,
         item_model: Any = Depends(deps.item_model)
-) -> dict:
+) -> Any:
     # 임시
     result = await create_item_service(data_type, org_name, item_model)
 
     return {
-        "result": result,
-        "message": "item {} create success".format(data_type)
+        "msg": "item {} create success, count : {}".format(data_type, result)
     }
 
 
 # 4. delete
-@router.delete("/delete")
+@router.delete("/delete", response_model=schemas.Msg, response_description="")
 async def delete_item_all(
         data_type: str,
         item_model: Any = Depends(deps.item_model)
-) -> dict:
+) -> Any:
     await delete_item_all_service(data_type, item_model)
 
     return {
-        "message": "delete all {} collection".format(data_type)
+        "msg": "delete all {} collection".format(data_type)
     }
 
 

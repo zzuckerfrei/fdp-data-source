@@ -7,7 +7,7 @@ from models.competition import Competition
 from models.match import Match
 from models.lineup import Lineup
 from models.event import Event
-from models.item import Item
+# from models.item import Item
 
 
 async def init_db():
@@ -19,4 +19,4 @@ async def init_db():
             MONGO_PORT=settings.MONGO_PORT,
             MONGO_DB_NAME=settings.MONGO_DB_NAME)
         , authSource="admin")
-    await init_beanie(database=client.fdp, document_models=[Meta, Competition, Match, Lineup, Event, Item])
+    await init_beanie(database=client.fdp, document_models=[Meta, Competition, Match, Lineup, Event])
