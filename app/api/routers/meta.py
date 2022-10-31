@@ -10,22 +10,25 @@ router = APIRouter()
 
 
 # 1. create
-@router.post("/create/{data_type}", response_model=schemas.Msg, response_description="")
+@router.get("/create/{data_type}", response_model=schemas.Msg, response_description="")
 async def create_meta(
         data_type: str,
-        meta: Meta,
         file_list: Any = Depends(deps.file_list)
 ) -> Any:
-    meta.data_type = data_type
-    meta.list_in_dir = file_list
-    meta.count_in_dir = len(file_list)
+    """
+    최초 meta 데이터 저장시 호출 \n
+    meta를 postgres에 저장하게 되면서 await meta.create()는 사용하지 않게 됨 20221031\n
 
-    await meta.create()
-    result = await meta.get(meta.id)
+    :param data_type: 데이터 타입 competition, match, lineup, event \n
+    :param file_list: 데이터 타입별 json 파일 목록 \n
+    :return: {"data_type" : str, "list_in_dir" : list, "count_dir_dir" : int}
+    """
 
     return {
         "msg": "meta {} create success".format(data_type),
-        "result": result
+        "result": {"data_type": data_type,
+                   "list_in_dir": file_list,
+                   "count_in_dir": len(file_list)}
     }
 
 
@@ -84,7 +87,6 @@ async def update_one_meta(
 async def delete_meta_one(
         data_type: str,
 ) -> Any:
-
     await Meta.find(Meta.data_type == data_type).delete()
 
     return {
