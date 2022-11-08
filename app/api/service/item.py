@@ -40,7 +40,6 @@ async def create_item_service(data_type: str,
             await model.create()
             result += 1
 
-
         # Meta 정보 update -> 전체 주석 221019
         # 일단은 여기서 업데이트 로직을 실행하지만, 추후 airflow postgres오퍼레이터 사용해서 업데이트하기
         # meta.list_in_db.append(target_file)
@@ -53,7 +52,6 @@ async def create_item_service(data_type: str,
         # }}
 
         # await meta.update(update_query)
-
 
         return result
 
@@ -87,3 +85,15 @@ async def delete_item_all_service(data_type: str,
             status_code=404,
             detail="error = {}".format(e)
         )
+
+
+# 20221108 개발중
+async def select_item_one(org_name: str,
+                          item_model: Any):
+    try:
+        item = await item_model.find_one(item_model.org_name == org_name)
+        print(f"select_item_one item :: {item}")
+
+    except Exception as e:
+        print(e)
+        raise Exception

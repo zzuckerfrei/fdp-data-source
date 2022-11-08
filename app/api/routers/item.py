@@ -22,6 +22,23 @@ async def create_item(
     }
 
 
+# 20221108 개발중
+# 2. read - find by : data_type, org_name
+@router.get("/read_one", response_description="")
+async def read_one_item(
+        data_type,
+        org_name,
+        item_model: Any = Depends(deps.item_model)
+) -> dict:
+
+    result = await select_item_one(org_name=org_name, item_model=item_model)
+
+    return {
+        "result": result,
+        "message": "read_one_meta {} success".format(data_type)
+    }
+
+
 # 4. delete
 @router.delete("/delete", response_model=schemas.Msg, response_description="")
 async def delete_item_all(
@@ -54,12 +71,5 @@ async def delete_item_all(
 #     }
 
 
-# 2. read - find by : data_type, org_name
-# @router.get("/read_one", response_description="")
-# async def read_one_item(data_type, org_name, data_model: Any = Depends(deps.checker)) -> dict:
-#     return {
-#         # "result": result,
-#         "message": "read_one_meta {} success".format(data_type)
-#     }
 
 # 3. update -> unuse
