@@ -8,6 +8,7 @@ from fastapi import HTTPException
 from models.meta import Meta
 
 
+# 1 create
 async def create_item_service(data_type: str,
                               org_name: str,
                               item_model: Any):
@@ -62,6 +63,20 @@ async def create_item_service(data_type: str,
         )
 
 
+# 2 read
+async def select_item_one(org_name: str,
+                          item_model: Any):
+    try:
+        item = await item_model.find_one(item_model.org_name == org_name)
+
+        return item
+
+    except Exception as e:
+        print(e)
+        raise Exception
+
+
+# 4 delete
 async def delete_item_all_service(data_type: str,
                                   item_model: Any):
     try:
@@ -87,13 +102,4 @@ async def delete_item_all_service(data_type: str,
         )
 
 
-# 20221108 개발중
-async def select_item_one(org_name: str,
-                          item_model: Any):
-    try:
-        item = await item_model.find_one(item_model.org_name == org_name)
-        print(f"select_item_one item :: {item}")
 
-    except Exception as e:
-        print(e)
-        raise Exception

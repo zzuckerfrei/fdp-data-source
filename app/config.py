@@ -9,7 +9,10 @@ from models.event import Event, UpdateEvent
 class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
 
+    # docker
     MONGO_HOST = "fdp-mongo"  # localhost (x), fdp-mongo(o), 172.18.0.2 (?) -> todo 환경변수로 받을 것
+
+    # local
     # MONGO_HOST = "localhost"
     MONGO_PORT = 27017
     MONGO_USERNAME = "root"
@@ -36,7 +39,7 @@ class Settings(BaseSettings):
         # "lineup": "/Users/smlee/Documents/open-data-master/data/lineups",
         # "event": "/Users/smlee/Documents/open-data-master/data/events",
 
-        # 컨테이너 환경
+        # docker 환경
         "competition": "/usr/src/data/",
         "match": "/usr/src/data/matches",
         "lineup": "/usr/src/data/lineups",

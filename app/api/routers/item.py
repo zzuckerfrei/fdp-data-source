@@ -14,7 +14,7 @@ async def create_item(
         org_name: str,
         item_model: Any = Depends(deps.item_model)
 ) -> Any:
-    # 임시
+
     result = await create_item_service(data_type, org_name, item_model)
 
     return {
@@ -22,9 +22,8 @@ async def create_item(
     }
 
 
-# 20221108 개발중
 # 2. read - find by : data_type, org_name
-@router.get("/read_one", response_description="")
+@router.get("/read_one", response_model=schemas.Msg, response_description="")
 async def read_one_item(
         data_type,
         org_name,
@@ -35,7 +34,7 @@ async def read_one_item(
 
     return {
         "result": result,
-        "message": "read_one_meta {} success".format(data_type)
+        "msg": "read_one_meta {} success".format(data_type)
     }
 
 
