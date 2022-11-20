@@ -37,15 +37,15 @@ FastAPI, pymongo
 
 ### build & deploy
 ```
-docker build -t fdp-data-source:v0.12 .
+docker build -t fdp-data-source:v0.13 .
 
 docker run -d \                                                                                            ✔  fdp-pypack 
 -p 8000:8000 \
 --network fdp-net \
 -v {your-data-dir}/data:/usr/src/data \
 --name fdp-data-source \
-fdp-data-source:v0.12
+fdp-data-source:v0.13
 ```
 
 
-last update 20221031
+last update 20221120
