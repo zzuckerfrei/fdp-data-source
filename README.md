@@ -1,36 +1,40 @@
 
 # fdp-data-source
+file to mongoDB api
 
-FastAPI, pymongo
+### Features
+* FastAPI
+* pydantic
+* beanie
 
 
 ### project architecture
 ```
 .
-├── app                        # "app" is a Python package
+├── app                        
 │   ├── __init__.py          
-│   ├── main.py                # "main" module, e.g. import app.main
-│   ├── config.py              # config
-│   ├── database.py            # database
-│   ├── api                    # package for api
+│   ├── main.py          
+│   ├── config.py              
+│   ├── database.py            
+│   ├── api                    
 │   │   ├── __init__.py       
-│   │   ├── api.py             # router를 묶는 파일. 최종적으로 main에서 이 파일만 불러옴
-│   │   ├── dependencies.py    # "dependencies" module, e.g. import app.dependencies. 여기에 get_db()로 session(client)생성한 것 받아오기     
+│   │   ├── api.py             
+│   │   ├── dependencies.py         
 │   │   ├── routers          
 │   │   │   ├── __init__.py
-│   │   │   ├── meta.py        # 
-│   │   │   └── item.py        # 
+│   │   │   ├── meta.py         
+│   │   │   └── item.py         
 │   │   └── service
 │   │       ├── __init__.py
-│   │       └── item.py        # 
-│   ├── models                 # package for DTO 
+│   │       └── item.py         
+│   ├── models                  
 │   │   ├── __init__.py
 │   │   ├── meta.py
 │   │   ├── competition.py
 │   │   ├── match.py
 │   │   ├── lineup.py
 │   │   └── event.py
-│   └── schemas                 # 
+│   └── schemas                 
 │       ├── __init__.py
 │       └── msg.py
 ```
@@ -39,7 +43,7 @@ FastAPI, pymongo
 ```
 docker build -t fdp-data-source:v0.13 .
 
-docker run -d \                                                                                            ✔  fdp-pypack 
+docker run -d \ 
 -p 8000:8000 \
 --network fdp-net \
 -v {your-data-dir}/data:/usr/src/data \
