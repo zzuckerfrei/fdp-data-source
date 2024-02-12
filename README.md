@@ -8,7 +8,7 @@ file to mongoDB api
 * beanie
 
 
-### project architecture
+### Project Architecture
 ```
 .
 ├── app                        
@@ -39,17 +39,24 @@ file to mongoDB api
 │       └── msg.py
 ```
 
-### build & deploy
+### Data
+click [StatsBomb Open Data](https://github.com/statsbomb/open-data) & download
+
+### Build & Deploy
 ```
 docker build -t fdp-data-source:v0.13 .
 
 docker run -d \ 
 -p 8000:8000 \
 --network fdp-net \
--v {your-data-dir}/data:/usr/src/data \
+-v {your-StatsBomb-data-dir}/data:/usr/src/data \
 --name fdp-data-source \
 fdp-data-source:v0.13
 ```
 
+### Swagger
+http://localhost:8000/docs#/
+
+<br>
 
 last update 20221120
